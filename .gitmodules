@@ -1,0 +1,18 @@
+[submodule "ii_bot"]
+	path = ii_bot
+	url = git@github.com:VIVERA83/ii_bot.git
+[submodule "ii_clicker_lb"]
+	path = ii_clicker_lb
+	url = git@github.com:VIVERA83/ii_clicker_lb.git
+[submodule "ii_data_loader"]
+	path = ii_data_loader
+	url = git@github.com:VIVERA83/ii_data_loader.git
+[submodule "ii_speed"]
+	path = ii_speed
+	url = git@github.com:VIVERA83/ii_speed.git
+[submodule "ii_file_handler"]
+	path = ii_file_handler
+	url = git@github.com:VIVERA83/ii_file_handler.git
+[submodule "ii_clicker"]
+	path = ii_clicker
+	url = git@github.com:VIVERA83/ii_clicker.git

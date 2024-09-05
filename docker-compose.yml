@@ -1,0 +1,76 @@
+services:
+  ii_bot:
+    container_name: ii_bot
+    build:
+      context: ii_bot
+      dockerfile: Dockerfile
+    env_file:
+      - env/ii_bot.env
+    depends_on:
+      - ii_rabbitmq
+
+  ii_speed:
+    container_name: ii_speed
+    build:
+      context: ii_speed
+      dockerfile: Dockerfile
+    env_file:
+      - env/ii_speed.env
+    depends_on:
+      - ii_rabbitmq
+
+  ii_clicker:
+    container_name: ii_clicker
+    build:
+      context: ii_clicker
+      dockerfile: Dockerfile
+    env_file:
+      - env/ii_clicker.env
+    depends_on:
+      - ii_rabbitmq
+
+  ii_clicker_lb:
+    container_name: ii_clicker_lb
+    build:
+      context: ii_clicker_lb
+      dockerfile: Dockerfile
+    env_file:
+      - env/ii_clicker_lb.env
+    depends_on:
+      - ii_rabbitmq
+
+  ii_rabbitmq:
+    restart: always
+    container_name: ii_rabbit
+    image: rabbitmq:3-management
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:15672" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - ${RABBIT_PORT}:${RABBIT_PORT}
+
+  ii_postgres:
+    restart: always
+    container_name: ii_postgres
+    image: postgres:15
+    volumes:
+      - postgres_ii_volume:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -V" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    command: -p ${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+
+
+volumes:
+  postgres_ii_volume:
+
